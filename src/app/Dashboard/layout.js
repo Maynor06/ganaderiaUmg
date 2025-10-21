@@ -6,12 +6,14 @@ import NavbarDashboard from "@/components/NavbarDashboard"
 export default function DashboardLayut({children}){
 
     return(
-        <div>
+        <div className="h-screen flex flex-col bg-background" >
             <Header/>
-            <NavbarDashboard/>
-            <main>
-                {children}
-            </main>
+            <div className="flex flex-1 overflow-hidden" >            
+                <NavbarDashboard/>
+                <main className="flex-1 overflow-auto" >
+                    {children}
+                </main>
+            </div>
         </div>
     )
 

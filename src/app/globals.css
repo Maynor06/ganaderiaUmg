@@ -5,3 +5,48 @@ body {
   color: var(--foreground);
   outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
 }
+
+@theme{
+  --font-size: 16px;
+    --background: #edf2f7;
+    --foreground: #2d3748;
+    --card: #fff;
+    --card-foreground: #2d3748;
+    --popover: #fff;
+    --popover-foreground: #2d3748;
+    --primary: #3182ce;
+    --primary-foreground: #fff;
+    --secondary: #e2e8f0;
+    --secondary-foreground: #2d3748;
+    --muted: #f7fafc;
+    --muted-foreground: #718096;
+    --accent: #48bb78;
+    --accent-foreground: #fff;
+    --destructive: #f56565;
+    --destructive-foreground: #fff;
+    --border: #cbd5e0;
+    --input: transparent;
+    --input-background: #fff;
+    --switch-background: #cbd5e0;
+    --font-weight-medium: 500;
+    --font-weight-normal: 400;
+    --ring: #3182ce;
+    --chart-1: #3182ce;
+    --chart-2: #48bb78;
+    --chart-3: #ed8936;
+    --chart-4: #9f7aea;
+    --chart-5: #ecc94b;
+    --radius: .625rem;
+    --sidebar: #2c3e4f;
+    --sidebar-foreground: #e2e8f0;
+    --sidebar-primary: #3182ce;
+    --sidebar-primary-foreground: #fff;
+    --sidebar-accent: #374151;
+    --sidebar-accent-foreground: #f3f4f6;
+    --sidebar-border: #374151;
+    --sidebar-ring: #3182ce;
+    --success: #48bb78;
+    --success-foreground: #fff;
+    --warning: #ed8936;
+    --warning-foreground: #fff;
+}
