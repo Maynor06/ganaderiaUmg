@@ -55,11 +55,6 @@ export default function NavbarDashboard() {
       "path": "/Dashboard/Reportes",
       "icon": <AssessmentOutlinedIcon sx={{color: '#718096' }} />,
       "name": "Reportes"
-    },
-    {
-      "path": "/",
-      "icon": <LogoutOutlinedIcon sx={{color: '#718096' }} />,
-      "name": "Cerrar Sesión"
     }
   ]
     return (

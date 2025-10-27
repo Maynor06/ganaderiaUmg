@@ -58,7 +58,6 @@ const Personal = ({ data }) => {
                 </div>
                 <TableContent colums={COLUMNS} rows={data} rowsname={rowsNameP}/>
                 <ModalPersonal open={showModal} handleClose={() => {setShowModal(false)}} />
-
             </div>
         </div>
     )
