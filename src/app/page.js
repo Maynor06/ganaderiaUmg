@@ -17,11 +17,36 @@ export default function Home() {
     e.preventDefault();
 
     try {
+      /* 
+                      ---------- CODIGO ORIGINA COMPA -----------
+
+
       const data = await login(username, password);
       guardarToken(data.token);
       router.push('/Dashboard');
+      */
+
+
+
+      /* ============================== CODIGO PARA QUEMAR LA CONTRASEÑA DIRECTAMENTE   ==============================*/
+
+
+      if (username === 'admin' && password === 'admin') {
+        guardarToken('dev-token'); // token temporal
+        router.push('/Dashboard');
+      } else {
+        alert('Credenciales incorrectas (usa admin / admin)');
+      }
+
+
+
+      /* ============================== FIN DEL CODIGO, AQUI PARA ABAJO TODO QUEDO IGUAL  ==============================*/
+
+
+
+
     } catch (e) {
-      alert('error al inicar sesión')
+      alert('error al iniciar sesión')
       console.error(e)
     }
 
