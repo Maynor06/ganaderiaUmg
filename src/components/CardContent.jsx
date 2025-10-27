@@ -8,7 +8,7 @@ const CardContent = ({ icon, name, total, porcentaje, descripcion, badge, color 
                 <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1" >
-                            <img src={icon} alt={name} />
+                            {icon}
                             <p className="text-sm text-[#718096] " >{name}</p>
                         </div>
                         <p className="text-4xl font-semibold text-foreground"  >
@@ -23,8 +23,8 @@ const CardContent = ({ icon, name, total, porcentaje, descripcion, badge, color 
                             </span>
                         </div>
                     </div>
-                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center shadow-md">
-                        <img src={icon} alt={name} />
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-md`} style={{background: `linear-gradient( to bottom right, ${color}, #FFF )`}} >
+                        {badge}
                     </div>
                 </div>
                 <div className="h-16">
@@ -35,26 +35,6 @@ const CardContent = ({ icon, name, total, porcentaje, descripcion, badge, color 
                                     className="recharts-wrapper"
                                     style={{ position: 'relative', cursor: 'default', width: '202px', height: '64px' }}
                                 >
-                                    <svg
-                                        role="application"
-                                        tabIndex={0}
-                                        className="recharts-surface"
-                                        width={202}
-                                        height={64}
-                                        viewBox="0 0 202 64"
-                                        style={{ width: '100%', height: '100%' }}
-                                    >
-                                        <title></title>
-                                        <desc></desc>
-                                        <defs>
-                                            <clipPath id="recharts3861-clip">
-                                                <rect x={5} y={5} height={54} width={192} />
-                                            </clipPath>
-                                        </defs>
-                                        <g className="recharts-layer recharts-line">
-
-                                        </g>
-                                    </svg>
                                 </div>
                             </div>
                         </div>

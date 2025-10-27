@@ -1,6 +1,17 @@
+'use server'
 
 import Dashboard from "@/components/Dashboard"
+import { Api } from "@/lib/api";
 
-export default function DashboardHome() {
-    return <Dashboard/>
+async function getDateDashboard(){
+
+    const data = Api.get('/Dashboard')
+    return data;
+}
+
+export default async function DashboardHome() { 
+
+    const data = await getDateDashboard();
+
+    return <Dashboard data={data} />
 }

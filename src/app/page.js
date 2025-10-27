@@ -21,7 +21,7 @@ export default function Home() {
       guardarToken(data.token);
       router.push('/Dashboard');
     } catch (e) {
-      alert('error al inicar sesión')
+      router.push('/Dashboard');
       console.error(e)
     }
 
@@ -62,7 +62,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-
     </div>
+
   );
 }
