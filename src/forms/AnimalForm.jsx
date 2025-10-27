@@ -150,10 +150,8 @@ const AnimalForm = ({ initialData = {}, onSubmit, especies = [] }) => {
               label="Raza"
               onChange={handleChange}
             >
-              <MenuItem value={formData.RazaId}>{' '}</MenuItem> {/* Opción de selección inicial vacía */}
-              {/* 🚨 CORREGIDO: Usar la clave de estado correcta (EspecieId) */}
+              <MenuItem value={formData.RazaId}>{' '}</MenuItem> 
               {getRazasForEspecie(especies, formData.EspecieId).map((opt) => (
-                // Asegúrate que el key y value coincidan con la estructura de Raza (idRaza)
                 <MenuItem key={opt.id} value={opt.id}>{opt.nombre}</MenuItem> 
               ))}
             </Select>

@@ -32,7 +32,7 @@ export default function NavbarDashboard() {
       "name": "Animales"
     },
     {
-      "path": "/Dashboard/Person",
+      "path": "/Dashboard/Personal",
       "icon": <PeopleAltOutlinedIcon sx={{color: '#718096' }} />,
       "name": "Personal"
     },
