@@ -14,13 +14,13 @@ const TableSimple = ({ rows }) => {
 
 
     return (
-        <TableContainer component={Paper} style={{borderRadius: 'none' }} >
+        <TableContainer component={Paper} style={{borderRadius: '0.8rem' }} >
             <Table sx={{ minWidth: 650 }} aria-label="animales table">
 
                 <TableHead>
                     <TableRow>
                         {COLUMNS_KEYS.map((key) => (
-                            <TableCell key={key} >
+                            <TableCell key={key} style={{fontWeight: 'bold'}} >
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                             </TableCell>
                         ))}

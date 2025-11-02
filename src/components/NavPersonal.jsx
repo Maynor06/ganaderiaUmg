@@ -1,6 +1,7 @@
 'use client'
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const links = [
     { id: 'empleados', name: 'Empleados', path: '/Dashboard/Personal' },
@@ -11,9 +12,16 @@ const links = [
 ];
 
 const NavPersonal = () => {
-    const [activeTab, setActiveTab] = useState(links[0].id);
+    
+    const [activeTab, setActiveTab] = useState();
+    const url = usePathname();
 
-        const handleTabClick = (id, path) => {
+    useEffect(() => {
+        const linkActive =  links.find((link) => link.path == url);
+        setActiveTab(linkActive.id)
+    }, [])
+
+    const handleTabClick = (id, path) => {
         setActiveTab(id);
         console.log(`Navegando a: ${path}`); 
     };
@@ -37,7 +45,7 @@ const NavPersonal = () => {
                             aria-selected={isActive}
                             data-state={isActive ? "active" : "inactive"}
                             className={`${baseClasses} ${stateClasses}`}
-                            onClick={handleTabClick}
+                            onClick={() =>  handleTabClick(tab.id, tab.path) }
                         >
                             {tab.name}
                         </Link>

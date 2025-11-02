@@ -92,7 +92,8 @@ export default function Animal({ data }) {
                         </p>
                     </div>
                     <div className="flex gap-2">
-                        <button data-slot="button" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-[#757575] focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border border-[#757575] bg-transparent text-foreground hover:bg-[#48bb78] hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3">
+                        <button data-slot="button" onClick={() => Api.getDocument("animal", "excel")}
+                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([className*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-[#757575] focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border border-[#757575] bg-transparent text-foreground hover:bg-[#48bb78] hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&gt;svg]:px-3">
                             <SaveAltOutlinedIcon />
                             Exportar datos
                         </button>
@@ -105,7 +106,7 @@ export default function Animal({ data }) {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 
                     {dataGestion.map((dataG, index) => (
-                        <div data-slot="card" className="bg-[#fff] text-card-foreground flex flex-col gap-6 rounded-xl border border-[#757575]" key={index} >
+                        <div data-slot="card" className="bg-[#fff] text-[#2d3748] flex flex-col gap-6 rounded-xl border border-[#cbd5e0]" key={index} >
 
                             <div data-slot="card-content" className="[&amp;:last-child]:pb-6 p-4">
                                 <div className="flex items-center justify-between">
@@ -123,11 +124,11 @@ export default function Animal({ data }) {
                         </div>
                     ))}
                 </div>                
-                <div className='bg-[#fff] text-[#2d3748] flex flex-col gap-6 rounded-xl border' >
+                <div className='bg-[#fff] text-[#2d3748] flex flex-col gap-6 rounded-xl border border-[#cbd5e0]' >
                 
-                <div data-slot="card-content" className="[&amp;:last-child]:pb-6 p-4">
-                    <div className="flex gap-4">
-                        <div className="flex justify-center items-center border border-[#E8E3DC] gap-1.5 w-[80%] rounded-xl relative ">
+                <div data-slot="card-content" className="[&amp;:last-child]:pb-6 p-4 ">
+                    <div className="flex gap-4 ">
+                        <div className="flex justify-center items-center gap-1.5 w-[80%] border border-[#e8e3dc] rounded-xl relative ">
                             <SearchOutlinedIcon sx={{color: '#757575'}} />
                             <input data-slot="input" 
                             className=" placeholder:text-[#757575] text-[#757575] selection:bg-primary selection:text-[#757575] dark:bg-input/30 flex h-9 w-full min-w-0 rounded-md text-base bg-input-background transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive" 

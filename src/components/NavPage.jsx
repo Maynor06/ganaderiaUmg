@@ -6,7 +6,7 @@ import { useState } from "react";
 const NavPage = ({links}) => {
     const [activeTab, setActiveTab] = useState(links[0].id);
 
-        const handleTabClick = (id, path) => {
+    const handleTabClick = (id) => {
         setActiveTab(id);
     };
 
@@ -29,7 +29,7 @@ const NavPage = ({links}) => {
                             aria-selected={isActive}
                             data-state={isActive ? "active" : "inactive"}
                             className={`${baseClasses} ${stateClasses}`}
-                            onClick={handleTabClick}
+                            onClick={ () => handleTabClick(tab.id)}
                         >
                             {tab.name}
                         </Link>

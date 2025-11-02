@@ -116,10 +116,19 @@ async function delet(endPoint) {
   }
   return res.json();
 }
+async function getDocument(entidad, formato){
+  const url = `${BASE_URL}/Archivo/${entidad}?formato=${formato}`
+  
+
+   console.log(`Iniciando la descarga: ${url}`)
+   window.open(url, 'self')
+
+}
 
 export const Api = {
   get, 
   post, 
   put, 
-  delet
+  delet,
+  getDocument
 }

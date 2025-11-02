@@ -9,7 +9,7 @@ import ModalPersonal from "./ModalPersonal";
 import DeleteDialog from "./DeleteDialog";
 
 
-const TableContent = ({ rows, colums, modal, rowsname }) => {
+const TableContent = ({ rows, colums, rowsname }) => {
     const [modalShow, setModalShow] = useState(false)
     const [dataModal, setDataModal] = useState({})
     const [modalDelete, setModalDelete] = useState(false)
