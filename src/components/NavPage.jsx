@@ -1,14 +1,22 @@
 'use client'
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 
 const NavPage = ({links}) => {
-    const [activeTab, setActiveTab] = useState(links[0].id);
+    const [activeTab, setActiveTab] = useState('');
+    const url = usePathname();
+
 
     const handleTabClick = (id) => {
         setActiveTab(id);
     };
+
+    useEffect(() => {
+        const linkActive = links.find((link) => link.path == url);
+        setActiveTab(linkActive.id)
+    }, [])
 
     return (
         <div className="p-4">

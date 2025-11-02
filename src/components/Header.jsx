@@ -17,7 +17,7 @@ export default function Header(){
     }, [])
 
     return (
-        <div className='w-full flex justify-between px-5 h-[90px] items-center border-b border-[#cbd5e0]' >
+        <div className='w-full flex justify-between px-5 h-[90px] bg-[#fff] items-center border-b border-[#cbd5e0]' >
             <div className='flex flex-col justify-center' >
                 <h2 className='text-2xl font-semibold' >Dashboard</h2>
                 <p className='text-[#718096] text-[0.90rem] ' >Visión general de tu operación ganadera</p>

@@ -1,11 +1,11 @@
 const { default: NavPage } = require("./NavPage");
 
 const links = [
-    { id: 'portreros', name: 'Potreros', path: '/Dashboard/Infraestructura/Potreros' },
-    { id: 'cargos', name: 'Corrales', path: '/Dashboard/Infraestructura/Corrales' },
-    { id: 'planilla', name: 'Estables', path: '/Dashboard/Infraestructura/Establos' },
-    { id: 'capacitaciones', name: 'Mantenimientos', path: '/Dashboard/Infraestructura/Mantenimientos' },
-    { id: 'estadisticas', name: 'Estadisticas', path: '/Dashboard/Infraestructura/Estadisticas' },
+    { id: 'portreros', name: 'Potreros', path: '/Dashboard/Infraestructura' },
+    { id: 'cargos', name: 'Corrales', path: '/Dashboard/Corrales' },
+    { id: 'planilla', name: 'Estables', path: '/Dashboard/Establos' },
+    { id: 'capacitaciones', name: 'Mantenimientos', path: '/DashboardMantenimientos' },
+    { id: 'estadisticas', name: 'Estadisticas', path: '/Dashboard/Estadisticas' },
 ];
 
 const NavPotrero = () => {
