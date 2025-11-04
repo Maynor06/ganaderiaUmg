@@ -8,7 +8,7 @@ async function getMedicamentos() {
     return data;
 }
 
-export default async function Corral(){
+export default async function MedicamentoDashboard(){
 
     const data = await getMedicamentos();
     return <Medicamento data={data} />

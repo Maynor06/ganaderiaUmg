@@ -8,7 +8,7 @@ async function getMaquinaria () {
     return data;
 }
 
-export default async function Corral(){
+export default async function MaquinariaDashboard(){
 
     const data = await getMaquinaria();
     return <Maquinaria data={data} />

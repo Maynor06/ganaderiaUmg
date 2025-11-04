@@ -8,7 +8,7 @@ async function getHerramientas() {
     return data;
 }
 
-export default async function Corral(){
+export default async function HerramientaDashboard(){
 
     const data = await getHerramientas();
     return <Herramienta data={data} />

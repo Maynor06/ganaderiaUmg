@@ -125,10 +125,41 @@ async function getDocument(entidad, formato){
 
 }
 
+async function postIA(endPoint, body) {
+  const url = `${BASE_URL}${endPoint}`;
+  const bodyJson = JSON.stringify(body);
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-type': 'application/json' },
+    body: bodyJson
+  });
+
+  if (!res.ok) {
+    let errorDetails = `Fallo en la petición a ${url}. Status: ${res.status}`;
+    let errorBody = "No se pudo obtener el cuerpo del error.";
+
+    try {
+      errorBody = await res.json();
+      errorDetails += ` - Detalles: ${JSON.stringify(errorBody)}`;
+    } catch (e) {
+      errorBody = await res.text();
+      errorDetails += ` - Cuerpo de error: ${errorBody.substring(0, 100)}...`;
+    }
+
+    throw new Error(errorDetails);
+  }
+
+  const data = await res.text(); 
+  
+  return data;
+}
+
 export const Api = {
   get, 
   post, 
   put, 
   delet,
-  getDocument
+  getDocument,
+  postIA
 }
