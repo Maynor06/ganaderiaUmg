@@ -1,5 +1,7 @@
 'use client'
 
+import { Api } from "@/lib/api";
+
 const { default: NavCompras } = require("@/tools/NavCompras")
 const { default: TablaVenta } = require("@/tools/TablaVentas")
 

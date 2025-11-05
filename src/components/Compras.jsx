@@ -1,5 +1,6 @@
 'use client'
 
+import { Api } from "@/lib/api";
 import NavCompras from "@/tools/NavCompras";
 import TableCompras from "@/tools/TableCompras";
 

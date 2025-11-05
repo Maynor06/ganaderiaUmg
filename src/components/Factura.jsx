@@ -1,5 +1,6 @@
 'use client'
 
+import { Api } from "@/lib/api";
 import NavCompras from "@/tools/NavCompras";
 import TablaFactura from "@/tools/TablaFactura";
 
