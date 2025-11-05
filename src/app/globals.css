@@ -2,6 +2,6 @@
 
 body {
   background-color: #edf2f7;
-  color: var(#2d3748);
-  outline-color: color-mix(in oklab, var(#3182ce) 50%, transparent);
+  color: #2d3748;
+  outline-color: color-mix(in oklab, #3182ce 50%, transparent);
 }

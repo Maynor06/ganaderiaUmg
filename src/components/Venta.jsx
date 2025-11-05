@@ -100,3 +100,5 @@ const Venta = ({data}) => {
         </div>
     )
 }
+
+export default Venta

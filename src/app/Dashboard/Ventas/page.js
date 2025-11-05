@@ -1,6 +1,7 @@
 'use server'
 
 import Maquinaria from "@/components/Maquinaria";
+import Venta from "@/components/Venta";
 import { Api } from "@/lib/api"
 
 async function getVentas() {
