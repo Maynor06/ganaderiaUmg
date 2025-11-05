@@ -1,5 +1,5 @@
-const API_URL = 'https://webapiganaderia-ddgbhzdxavfrewfp.canadacentral-01.azurewebsites.net'
-const BASE_URL = 'https://webapiganaderia-ddgbhzdxavfrewfp.canadacentral-01.azurewebsites.net';
+const API_URL = 'https://webapiganaderia-ddgbhzdxavfrewfp.canadacentral-01.azurewebsites.net/api'
+const BASE_URL = 'https://webapiganaderia-ddgbhzdxavfrewfp.canadacentral-01.azurewebsites.net/api';
 
 export async function login(username, password) {
   const res = await fetch(`${API_URL}/auth/login/`, {
