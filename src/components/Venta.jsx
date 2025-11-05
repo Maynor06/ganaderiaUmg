@@ -7,7 +7,7 @@ const { default: TablaVenta } = require("@/tools/TablaVentas")
 const COLUMNS = ['ID', 'Fecha', 'Cliente', 'Tipo de Pago', 'Total'];
 const rowsNameP = ['id', 'fecha', 'cliente', 'tipoPago', 'total'];
 
-const Venta = ({data}) => {
+const Venta = () => {
 
     return (
         <div className="p-8" >
@@ -95,7 +95,6 @@ const Venta = ({data}) => {
                         </button>
                     </div>
                 </div>
-                <TablaVenta colums={COLUMNS} rows={data} rowsname={rowsNameP} />
             </div>
         </div>
     )
