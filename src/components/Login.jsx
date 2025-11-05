@@ -1,6 +1,6 @@
+'use client'
 import { guardarToken } from "@/lib/auth";
 import { LockOutline, PermIdentityOutlined } from "@mui/icons-material";
-import Image from "next/image";
 
 const { login } = require("@/lib/api");
 const { useRouter } = require("next/navigation");
