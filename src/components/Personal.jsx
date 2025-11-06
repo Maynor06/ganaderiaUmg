@@ -4,6 +4,8 @@ import NavPersonal from "./NavPersonal";
 import TableContent from "@/tools/TableContainer";
 import ModalPersonal from "@/tools/ModalPersonal";
 import { useState } from "react";
+import { Api } from "@/lib/api";
+import { Load } from "@/tools/icons";
 
 const COLUMNS = ['ID', 'Nombre Completo', 'Cargo', 'Fecha Ingreso', 'Antiguedad', 'Salario'];
 const rowsNameP = ['id', 'nombreCompleto', 'cargo', 'fechaIngreso', 'antiguedad', 'salario'];
@@ -11,8 +13,23 @@ const rowsNameP = ['id', 'nombreCompleto', 'cargo', 'fechaIngreso', 'antiguedad'
 
 
 const Personal = ({ data }) => {
-
     const [showModal, setShowModal] = useState(false);
+    const [dataEmpleados, setDataEmpleados] = useState(data)
+    const [load, setLoad] = useState(false)
+
+    const refresh = async () => {
+        setLoad(true)
+        try{
+            const dataRefresh = await Api.get('/Empleado')
+            setDataEmpleados(dataRefresh)
+        }catch (error) {
+            console.error(error)
+        }finally {
+            setLoad(false)
+        }
+    }
+
+    if (load) return ( <div><Load/> </div>  )
 
     return (
         <div className="p-8">
@@ -56,8 +73,8 @@ const Personal = ({ data }) => {
                         </button>
                     </div>
                 </div>
-                <TableContent colums={COLUMNS} rows={data} rowsname={rowsNameP}/>
-                <ModalPersonal open={showModal} handleClose={() => {setShowModal(false)}} />
+                <TableContent colums={COLUMNS} rows={dataEmpleados} rowsname={rowsNameP} onSucces={refresh} />
+                <ModalPersonal open={showModal} handleClose={() => {setShowModal(false)}} onSucces={refresh} />
             </div>
         </div>
     )

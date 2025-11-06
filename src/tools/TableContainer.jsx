@@ -9,7 +9,7 @@ import ModalPersonal from "./ModalPersonal";
 import DeleteDialog from "./DeleteDialog";
 
 
-const TableContent = ({ rows, colums, rowsname }) => {
+const TableContent = ({ rows, colums, rowsname, onSucces }) => {
     const [modalShow, setModalShow] = useState(false)
     const [dataModal, setDataModal] = useState({})
     const [modalDelete, setModalDelete] = useState(false)
@@ -90,7 +90,7 @@ const TableContent = ({ rows, colums, rowsname }) => {
                     ))}
                 </TableBody>
             </Table>
-            <ModalPersonal open={modalShow} handleClose={handleClose} data={dataModal}/>
+            <ModalPersonal open={modalShow} handleClose={handleClose} data={dataModal} onSucces={onSucces} />
             <DeleteDialog  open={modalDelete} handleClose={handleCloseDelete} data={datadelete} onConfirm={deleteEmpleado} /> 
         </TableContainer>
     );

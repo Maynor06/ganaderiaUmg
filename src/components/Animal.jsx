@@ -1,5 +1,5 @@
 'use client'
-import { Meat, WeightIcon } from '@/tools/icons';
+import { Load, Meat, WeightIcon } from '@/tools/icons';
 import { AddOutlined, FilterAltOutlined, KeyboardArrowDown, KeyboardArrowDownOutlined, PlusOneOutlined } from '@mui/icons-material';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import HealingOutlinedIcon from '@mui/icons-material/HealingOutlined';
@@ -7,7 +7,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import SaveAltOutlinedIcon from '@mui/icons-material/SaveAltOutlined';
 import { Table } from '@mui/material';
 import TableSimple from '@/tools/Table';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Api } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import ModalGeneric from './Modal';
@@ -16,12 +16,16 @@ export default function Animal({ data }) {
 
     const { totalAnimales, totalAnimalesActivos, totalAnimalesEnTratamiento, pesoPromedio } = data;
     const [dataAnimales, setDataAnimales] = useState([])
+    const [dataFilter, setDataFilter] = useState([])
+    const [wordFilter, setWordFilter] = useState('')
     const [load, setLoad] = useState(true);
     const [error, setError] = useState(null)
     const router = useRouter();
     const [showModal, setShowModal] = useState(false);
 
     const dataGestion = [
+
+
         {
             "title": "Total Animales",
             "data": totalAnimales,
@@ -44,34 +48,46 @@ export default function Animal({ data }) {
         }
     ]
 
-    const getDataAnimals = async () => {
-        const dataList = await Api.get('/Animal');
-
-        return dataList;
+    const handleSearch = (event) => {
+        setWordFilter(event.target.value);
     }
-        useEffect(() => {
-            const fetchData = async () => {
-                setLoad(true);
-                setError(null)
 
-                try {
-                    const list = await getDataAnimals(); 
-                    setDataAnimales(list); 
+    const filterAnimals = useMemo( () => {
+        if(wordFilter === '') return dataAnimales;
 
-                } catch (error) {
-                    console.error("Error al obtener datos de animales:", error);
-                    setError(error)
-                } finally {
-                    setLoad(false);
-                }
-            };
+        const wordAux = wordFilter.toLocaleLowerCase();
+
+        return dataAnimales.filter(animal => {
+            const nameAnimal = animal.nombre.toLowerCase();
+            const codAnimal = animal.codigo.toLowerCase();
+            return nameAnimal.includes(wordAux) || codAnimal.includes(wordAux)
+        }
             
-            fetchData()
+        )
+    }, [dataAnimales, wordFilter])
 
+
+    const getDataAnimals = async () => {
+        setLoad(true)
+        setError(null)
+        try{
+            const list = await Api.get('/Animal')
+            setDataAnimales(list)
+        }catch (error){
+            console.error(error)
+            setError(error)
+        } finally{
+            setLoad(false)
+        }
+    }
+
+
+        useEffect(() => {
+            getDataAnimals();
         }, []);
 
     if(load) {
-        return <div>Cargando datos de animales</div>
+        return <div> <Load/> </div>
     }
     if(error){
         return <div>Error al cargar los datos: {error.message} </div>
@@ -130,7 +146,7 @@ export default function Animal({ data }) {
                     <div className="flex gap-4 ">
                         <div className="flex justify-center items-center gap-1.5 w-[80%] border border-[#e8e3dc] rounded-xl relative ">
                             <SearchOutlinedIcon sx={{color: '#757575'}} />
-                            <input data-slot="input" 
+                            <input data-slot="input"  value={wordFilter} onChange={handleSearch}
                             className=" placeholder:text-[#757575] text-[#757575] selection:bg-primary selection:text-[#757575] dark:bg-input/30 flex h-9 w-full min-w-0 rounded-md text-base bg-input-background transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive" 
                             placeholder="Buscar por nombre o código..." >
                             </input>
@@ -146,8 +162,8 @@ export default function Animal({ data }) {
                 </div>
                 </div>
                 
-                <TableSimple rows={dataAnimales} />
-                <ModalGeneric open={showModal} handleClose={() => setShowModal(false)} />
+                <TableSimple rows={filterAnimals} onSucces={getDataAnimals} />
+                <ModalGeneric open={showModal} handleClose={() => setShowModal(false)} onSucces={getDataAnimals} />
                     
             </div>
         </div>

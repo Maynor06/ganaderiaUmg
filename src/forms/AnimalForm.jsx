@@ -17,17 +17,27 @@ const ESTADO_OPTS = ['Activo', 'Inactivo', 'En Tratamiento', 'Vendido'];
 
 const AnimalForm = ({ initialData = {}, onSubmit, especies = [] }) => {
   const isEditing = !!initialData.codigo;
+  let razaInitialId = '';
+  let especieInitialId = '';
+  let initialPeso = '';
+  if(isEditing){
+    let especiaInital = especies.find(especie => especie.nombre == initialData.especie);
+    razaInitialId = especiaInital.razas.find(raza => raza.nombre == initialData.raza)?.id;
+    especieInitialId = especiaInital.idEspecie;
+
+    initialPeso = initialData.peso.replace('kg', '')
+}
 
   const [formData, setFormData] = useState({
     IdAnimal: initialData.id || null,
     Codigo: initialData.codigo || '',
     Nombre: initialData.nombre || '',
-    EspecieId: initialData.especie ?? '', // Use ?? for IDs
-    RazaId: initialData.raza ?? '',
+    EspecieId: especieInitialId ?? '', 
+    RazaId: razaInitialId ?? '',
     sexo: initialData.sexo || '',
     FechaNacimiento: initialData.fecha_nacimiento || '',
     Estado: initialData.estado || 'Activo', 
-    Peso: Number(initialData.peso) || '',
+    Peso: Number(initialPeso) || '',
     FotoUrl: initialData.foto_url || '',
   });
 
@@ -49,17 +59,14 @@ const AnimalForm = ({ initialData = {}, onSubmit, especies = [] }) => {
   }, [initialData]);
 
 
-  // 3. HANDLER DE CAMBIO: Implementación de la limpieza de campos dependientes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value)
     setFormData((prevData) => {
         const newData = {
             ...prevData,
             [name]: value,
         };
 
-        // 🚨 CORRECCIÓN: Si el campo cambiado es EspecieId, reseteamos RazaId
         if (name === 'EspecieId') {
             newData.RazaId = ''; 
         }
@@ -85,11 +92,7 @@ const AnimalForm = ({ initialData = {}, onSubmit, especies = [] }) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3, p: 3, border: '1px solid #ccc', borderRadius: 2 }}>
-      <Typography variant="h5" gutterBottom>
-        {isEditing ? 'Actualizar Animal' : 'Crear Nuevo Animal'}
-      </Typography>
-      
+    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3, p: 3, borderRadius: 2 }}>
       <Grid container spacing={3}>
         {/* Código */}
         <Grid item xs={12} sm={4}>
@@ -115,18 +118,17 @@ const AnimalForm = ({ initialData = {}, onSubmit, especies = [] }) => {
         </Grid>
         
         {/* Especie */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} width={'9rem'} sm={4}>
           <FormControl fullWidth required>
             <InputLabel>Especie</InputLabel>
             <Select
               name="EspecieId"
-              // Usar || '' para garantizar que el Select siempre esté controlado
               value={formData.EspecieId || ''} 
               label="Especie"
               onChange={handleChange}
             >
-              <MenuItem value={formData.EspecieId}>{' '}
-              </MenuItem> {/* Opción de selección inicial vacía */}
+              <MenuItem value={formData.EspecieId}> {initialData.especie || ''}
+              </MenuItem>
               {especies.map((opt) => (
                 <MenuItem key={opt.idEspecie} value={opt.idEspecie}>{opt.nombre}</MenuItem>
               ))}
@@ -134,23 +136,20 @@ const AnimalForm = ({ initialData = {}, onSubmit, especies = [] }) => {
           </FormControl>
         </Grid>
         
-        {/* Raza (CORREGIDO: dependencia y estabilidad) */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} width={'9rem'} sm={4}>
           <FormControl 
              fullWidth 
              required 
-             // 🚨 CORREGIDO: Usar la clave de estado correcta (EspecieId)
              disabled={!formData.EspecieId} 
           >
             <InputLabel>Raza</InputLabel>
             <Select
               name="RazaId"
-              // Usar || '' para garantizar que el Select siempre esté controlado
               value={formData.RazaId || ''} 
               label="Raza"
               onChange={handleChange}
             >
-              <MenuItem value={formData.RazaId}>{' '}</MenuItem> 
+              <MenuItem value={formData.RazaId}>{initialData.raza || ' '} </MenuItem> 
               {getRazasForEspecie(especies, formData.EspecieId).map((opt) => (
                 <MenuItem key={opt.id} value={opt.id}>{opt.nombre}</MenuItem> 
               ))}
@@ -159,7 +158,7 @@ const AnimalForm = ({ initialData = {}, onSubmit, especies = [] }) => {
         </Grid>
         
         {/* Sexo */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} width={'9rem'} sm={4}>
           <FormControl fullWidth required>
             <InputLabel>Sexo</InputLabel>
             <Select

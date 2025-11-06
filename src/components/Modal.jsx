@@ -16,9 +16,8 @@ const style = { // <- Define el estilo para la caja del Modal
     p: 4,
 };
 
-const ModalGeneric = ({ open, handleClose, data = {} }) => {
+const ModalGeneric = ({ open, handleClose, data = {}, onSucces }) => {
     const isEditing = !!data.codigo;
-
 
     const [dataEspecie, setDataEspecia] = useState([])
     const [load, setLoad] = useState(true);
@@ -57,6 +56,7 @@ const ModalGeneric = ({ open, handleClose, data = {} }) => {
                 setSucces(true)
             }
             handleClose();
+            onSucces();
         }catch {
             console.error("Error al crear el animal", error);
             setError(error)
@@ -73,6 +73,7 @@ const ModalGeneric = ({ open, handleClose, data = {} }) => {
             if(response.ok){
                 setSucces(true)
             }
+            onSucces();
             handleClose();
         }catch {
             console.error("Error al actualizar el animal", error);

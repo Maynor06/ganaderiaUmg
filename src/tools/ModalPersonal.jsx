@@ -17,7 +17,7 @@ const style = { // <- Define el estilo para la caja del Modal
     p: 4,
 };
 
-const ModalPersonal = ({ open, handleClose, data = {} }) => {
+const ModalPersonal = ({ open, handleClose, data = {}, onSucces }) => {
     const isEditing = !!data.id;
 
 
@@ -56,8 +56,9 @@ const ModalPersonal = ({ open, handleClose, data = {} }) => {
             const response = await Api.post('/Empleado', dataCreate);
             if(response.ok){
                 setSucces(true)
-            }
+            }            
             handleClose();
+            onSucces();
         }catch {
             console.error("Error al crear el animal", error);
             setError(error)
@@ -75,6 +76,7 @@ const ModalPersonal = ({ open, handleClose, data = {} }) => {
                 setSucces(true)
             }
             handleClose();
+            onSucces();
         }catch {
             console.error("Error al actualizar el animal", error);
             setError(error)
@@ -99,7 +101,6 @@ const ModalPersonal = ({ open, handleClose, data = {} }) => {
                     {isEditing ? 'Actualizar Empleado' : 'Crear Nuevo Empleado'}
                 </Typography>
                 <EmpleadoForm
-                    
                     initialData={data} 
                     onSubmit={isEditing ? empleadoUpdate: createEmpleado } 
                     cargos={dataCargos}

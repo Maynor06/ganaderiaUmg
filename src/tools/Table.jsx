@@ -8,9 +8,19 @@ import { useState } from "react";
 
 const COLUMNS_KEYS = ['codigo', 'nombre', 'especie', 'raza', 'peso', 'estado'];
 
-const TableSimple = ({ rows }) => {
+const TableSimple = ({ rows, onSucces }) => {
     const [modalShow, setModalShow] = useState(false)
+    const [dataModal, setDataModal] = useState({})
 
+    const hanldeOpen = (data) => {
+        setDataModal(data)
+        setModalShow(true)
+    }
+
+    const handleClose = () => {
+        setDataModal({})
+        setModalShow(false)
+    }
 
 
     return (
@@ -33,7 +43,7 @@ const TableSimple = ({ rows }) => {
                 <TableBody>
                     {rows.map((animal) => (
                         <TableRow
-                            key={animal.id} // Clave única para cada fila
+                            key={animal.id} 
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             {COLUMNS_KEYS.map((key) => (
@@ -45,11 +55,8 @@ const TableSimple = ({ rows }) => {
                                 <Link href={`/Dashboard/Animales/${animal.id}`} >
                                     <VisibilityOutlined />
                                 </Link>
-                                <button onClick={() => {
-                                    setModalShow(true)
-                                }} >
+                                <button onClick={() => hanldeOpen(animal)} >
                                     <EditOutlined/>
-                                    <ModalGeneric open={modalShow} handleClose={() => setModalShow(false)} data={rows}/>
                                 </button>
                                 <button>
                                     <DeleteOutline sx={{color: 'red'}} />
@@ -59,6 +66,7 @@ const TableSimple = ({ rows }) => {
                     ))}
                 </TableBody>
             </Table>
+            <ModalGeneric open={modalShow} handleClose={handleClose} data={dataModal} onSucces ={onSucces}/>
         </TableContainer>
     );
 }

@@ -23,14 +23,7 @@ const CARGO_OPTS_EJEMPLO = [
 // Opciones de Estado (tomado de la imagen)
 const ESTADO_OPTS = ['Activo', 'Inactivo', 'Vacaciones', 'Suspendido'];
 
-/**
- * Componente de formulario para crear o actualizar un empleado.
- * @param {object} initialData - Datos del empleado para edición (opcional).
- * @param {function} onSubmit - Función a ejecutar al enviar el formulario.
- * @param {array} cargos - Lista de cargos disponibles (opcional, usa el ejemplo si está vacío).
- */
 const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO, handleClose}) => {
-    // Determinamos si estamos editando o creando
     const isEditing = !!initialData.id;
 
     // 1. Inicialización del Estado
@@ -46,12 +39,9 @@ const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO,
         FotoUrl: initialData.FotoUrl || '',        
     });
 
-    // 2. Efecto para manejar la carga asíncrona de datos de edición (si es necesario)
-    // Este useEffect se asegura de que el formulario refleje los datos de 'initialData' si cambian.
     useEffect(() => {
         if (initialData.IdEmpleado) {
             setFormData({
-                // Mapeo seguro de todas las propiedades
                 IdEmpleado: initialData.IdEmpleado ?? null,
                 CargoId: initialData.CargoId ?? '',
                 Nombre: initialData.Nombre ?? '',
@@ -59,7 +49,6 @@ const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO,
                 SalarioBase: initialData.SalarioBase ?? '',
                 FotoUrl: initialData.FotoUrl ?? '',
                                 
-                // Formato de fecha para el input type="date"
                 FechaIngreso: initialData.FechaIngreso ? initialData.FechaIngreso.split('T')[0] : '',
             });
         }
@@ -71,7 +60,6 @@ const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO,
         let newValue = value;
         console.log("handleee changee", name, newValue)
 
-        // Convertir SalarioBase a número para evitar problemas si es un campo numérico estricto
         if (name === 'SalarioBase' && newValue !== '') {
             newValue = Number(newValue);
         }
@@ -82,19 +70,15 @@ const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO,
         }));
     };
 
-    // 4. Handler de Envío
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Lógica de limpieza para creación (similar a la discusión anterior)
         const dataToSend = { ...formData };
 
         if (!isEditing) {
-            // Si estamos creando, eliminamos la clave IdEmpleado para que la API la genere
             delete dataToSend.IdEmpleado;
         }
 
-        // Llamar a la función onSubmit (ej. enviar a tu API)
         onSubmit(dataToSend);
     };
 
