@@ -7,21 +7,23 @@ import Link from "next/link";
 import { useState } from "react";
 import ModalPersonal from "./ModalPersonal";
 import DeleteDialog from "./DeleteDialog";
+import ModalCompra from "./ModalCompra";
 
 
-const TableCompras = ({ rows, colums, rowsname }) => {
+const TableCompras = ({ rows, colums, rowsname, useRefresh }) => {
     const [modalShow, setModalShow] = useState(false)
     const [dataModal, setDataModal] = useState({})
     const [modalDelete, setModalDelete] = useState(false)
     const [datadelete, setDataDelete] = useState({});
 
-    const deleteEmpleado = async () => {
+    const deleteCompra = async () => {
         if(!datadelete) return;
         console.log(datadelete)
 
         try{
-            await Api.delet(`/Empleado/delete/${datadelete.id}`)
-            alert(`El empleado ${datadelete.nombre} ha sido eliminado`)
+            await Api.delet(`/compra/delete/${datadelete.id}`)
+            alert(`la compra ${datadelete.id} ha sido eliminado`)
+            useRefresh();
         }catch (error) {
             console.error(error.message)
         }
@@ -67,7 +69,7 @@ const TableCompras = ({ rows, colums, rowsname }) => {
                 <TableBody>
                     {rows.map((empleado) => (
                         <TableRow
-                            key={empleado.id} // Clave única para cada fila
+                            key={empleado.id} 
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             {rowsname.map((key) => (
@@ -90,6 +92,8 @@ const TableCompras = ({ rows, colums, rowsname }) => {
                     ))}
                 </TableBody>
             </Table>
+            <ModalCompra data={dataModal} handleClose={handleClose} onSucces={useRefresh} open={modalShow}  />
+            <DeleteDialog  open={modalDelete} handleClose={handleCloseDelete}  data={datadelete} onConfirm={deleteCompra} /> 
         </TableContainer>
     );
 }

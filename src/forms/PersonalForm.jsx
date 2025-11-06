@@ -11,8 +11,6 @@ import {
     Box
 } from '@mui/material';
 
-// Opciones de ejemplo para el campo 'Cargo'.
-// En un caso real, esto vendría de una API, similar a 'especies'
 const CARGO_OPTS_EJEMPLO = [
     { id: 1, nombre: 'Gerente' },
     { id: 2, nombre: 'Asistente Administrativo' },
@@ -20,18 +18,19 @@ const CARGO_OPTS_EJEMPLO = [
     { id: 4, nombre: 'Obrero de Campo' },
 ];
 
-// Opciones de Estado (tomado de la imagen)
 const ESTADO_OPTS = ['Activo', 'Inactivo', 'Vacaciones', 'Suspendido'];
 
 const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO, handleClose}) => {
     const isEditing = !!initialData.id;
-
-    // 1. Inicialización del Estado
+    let initialCargoId = '';
+    console.log("dataaaa initial:", initialData)
+    console.log("cargoooos", cargos)
+    if(isEditing){
+        initialCargoId = cargos.find(cargo => cargo.nombre = initialData.cargo)?.idCargo;
+    }
     const [formData, setFormData] = useState({
-        // IDs: Usar la clave exacta de C#
         IdEmpleado: initialData.id ?? null, 
-        CargoId: initialData.cargo ?? '',         
-
+        CargoId: initialCargoId ?? '',         
         Nombre: initialData.nombre || '',
         Apellido: initialData.apellido || '',        
         SalarioBase: initialData.salario ?? '', 
@@ -58,7 +57,6 @@ const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO,
     const handleChange = (e) => {
         const { name, value } = e.target;
         let newValue = value;
-        console.log("handleee changee", name, newValue)
 
         if (name === 'SalarioBase' && newValue !== '') {
             newValue = Number(newValue);
@@ -114,8 +112,7 @@ const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO,
                     />
                 </Grid>
                 
-                {/* Cargo y Fecha de Ingreso */}
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} width={'10rem'} sm={6}>
                     <FormControl fullWidth required>
                         <InputLabel>Cargo</InputLabel>
                         <Select
@@ -159,9 +156,7 @@ const EmpleadoForm = ({ initialData = {}, onSubmit, cargos = CARGO_OPTS_EJEMPLO,
                 </Grid>
 
 
-                {/* FotoUrl (Oculto o en otra sección si es necesario) */}
                 <Grid item xs={12} sm={6}>
-                     {/* Este campo no se muestra en el diseño, pero lo incluimos para el modelo de datos */}
                     <TextField
                         fullWidth
                         label="URL de la Foto"

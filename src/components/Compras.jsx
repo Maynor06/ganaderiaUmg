@@ -1,16 +1,56 @@
 'use client'
 
 import { Api } from "@/lib/api";
+import ModalCompra from "@/tools/ModalCompra";
 import NavCompras from "@/tools/NavCompras";
 import TableCompras from "@/tools/TableCompras";
+import { useMemo, useState } from "react";
 
-const { default: NavPage } = require("./NavPage");
 
 
 const COLUMNS = ['ID', 'Fecha', 'Proveedor', 'Tipo de Pago', 'Total'];
 const rowsNameP = ['id', 'fecha', 'proveedor', 'tipoPago', 'total'];
 
 const Compra = ({ data }) => {
+    const [showModal, setShowModal] = useState(false)
+    const [dataCompra, setDataCompra] = useState(data)
+    const [load, setLoad] = useState(false)
+    const [error, setError] = useState(null)
+    const [wordFilter, setWordFilter] = useState('')
+
+    const useRefresh = async () => {
+        setLoad(true)
+        try{
+            const response = await Api.get("/Compra")
+            console.log(response)
+            setDataCompra(response)
+        }catch (error) {
+            setError(error)
+            console.error(error)
+        } finally {
+            setLoad(false)
+        }
+    }
+
+    const handleSerch = (event) => {
+        setWordFilter(event.target.value);
+    }
+
+    const filterCompras = useMemo( () => {
+        if(wordFilter == '') return dataCompra;
+
+        const wordAux = wordFilter.toLocaleLowerCase();
+
+        return dataCompra.filter(compra => {
+            const nameProveedor = compra.proveedor.toLocaleLowerCase();
+            return nameProveedor.includes(wordAux)
+        })
+
+    }, [dataCompra, wordFilter])
+
+    if (load) return (<div>cargandooooo</div>)
+
+    if (error) return (<div>error al procesor los datos {error}</div>)
 
     return (
         <div className="p-8" >
@@ -38,10 +78,10 @@ const Compra = ({ data }) => {
 
                         {/* Campo de Búsqueda */}
                         <input
+                            value={wordFilter} onChange={handleSerch}
                             data-slot="input"
                             className="file:text-foreground bg-[#fff] placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive pl-10 border-[#E8E3DC]"
-                            placeholder="Buscar por ID, proveedor..."
-                            defaultValue="" // Reemplazado 'value' por 'defaultValue'
+                            placeholder="Buscar por proveedor..."
                         />
                     </div>
 
@@ -75,6 +115,7 @@ const Compra = ({ data }) => {
 
                         {/* Botón Nueva Compra */}
                         <button
+                        onClick={() => setShowModal(true)}
                             data-slot="button"
                             className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-4 shrink-0 [&>svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive text-primary-foreground h-9 px-4 py-2 has-[&>svg]:px-3 bg-[#6FBF6A] hover:bg-[#5fab55]"
                         >
@@ -100,7 +141,8 @@ const Compra = ({ data }) => {
                     </div>
                 </div>
 
-                <TableCompras colums={COLUMNS} rows={data} rowsname={rowsNameP} />
+                <TableCompras colums={COLUMNS} rows={filterCompras} rowsname={rowsNameP} useRefresh={useRefresh}  />
+                <ModalCompra handleClose={() => setShowModal(false)} onSucces={useRefresh} open={showModal}  />
 
             </div>
         </div>

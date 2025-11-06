@@ -16,11 +16,9 @@ export default function Animal({ data }) {
 
     const { totalAnimales, totalAnimalesActivos, totalAnimalesEnTratamiento, pesoPromedio } = data;
     const [dataAnimales, setDataAnimales] = useState([])
-    const [dataFilter, setDataFilter] = useState([])
     const [wordFilter, setWordFilter] = useState('')
     const [load, setLoad] = useState(true);
     const [error, setError] = useState(null)
-    const router = useRouter();
     const [showModal, setShowModal] = useState(false);
 
     const dataGestion = [
