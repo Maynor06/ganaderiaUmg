@@ -96,9 +96,10 @@ const ModalPersonal = ({ open, handleClose, data = {} }) => {
         >
             <Box sx={style}> 
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {isEditing ? 'Actualizar Animal' : 'Crear Nuevo Animal'}
+                    {isEditing ? 'Actualizar Empleado' : 'Crear Nuevo Empleado'}
                 </Typography>
                 <EmpleadoForm
+                    
                     initialData={data} 
                     onSubmit={isEditing ? empleadoUpdate: createEmpleado } 
                     cargos={dataCargos}

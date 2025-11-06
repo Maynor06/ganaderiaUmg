@@ -47,7 +47,7 @@ const Produccion = ({ data }) => {
                         </p>
                     </div>
                 </div>
-                <NavPage links={links} />
+               {/* <NavPage links={links} />*/} 
                 <div data-slot="card" className="bg-white text-card-foreground border-[#E8E3DC] flex flex-col gap-6 rounded-xl border">
                     <div data-slot="card-content" className="[&>:last-child]:pb-6 p-4">
                         <div className="flex items-center gap-4">
