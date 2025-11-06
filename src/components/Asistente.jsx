@@ -14,6 +14,15 @@ const Asistente = () => {
         }
     ]);
 
+    const handleBorrar = () => {
+        setHiloChat([
+            {
+                sender: 'IA',
+                content: '¡Hola! Soy tu asistente inteligente de GANEXA. Puedo ayudarte a consultar y analizar información sobre tus animales, producción, ventas, compras y más. ¿En qué puedo asistirte hoy?'
+            }
+        ])
+    }
+
     const [hiloUser, setHiloUser] = useState([]);
     const consultRapidas = [
         { "name": "Animales Acivos", "consulta": "puedes darme los animales que esten en estado activo", "icon": <Meat /> },
@@ -106,6 +115,7 @@ const Asistente = () => {
 
                     {/* Botón Borrar Conversación */}
                     <button
+                        onClick={handleBorrar}
                         data-slot="button"
                         className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-4 shrink-0 [&>svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-9 px-4 py-2 has-[&>svg]:px-3 border-[#E8E3DC] hover:bg-red-50 hover:text-red-600 hover:border-red-200"
                     >
@@ -136,7 +146,7 @@ const Asistente = () => {
                     <div className="lg:col-span-1 space-y-4">
 
                         {/* Card: Consultas Rápidas */}
-                        <div data-slot="card" className="bg-white text-card-foreground flex flex-col gap-6 rounded-xl border">
+                        <div data-slot="card" style={{overflow: 'scroll'}} className="bg-white text-card-foreground flex flex-col gap-6 rounded-xl border">
                             <div
                                 data-slot="card-header"
                                 className="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6"
@@ -218,7 +228,7 @@ const Asistente = () => {
                             </div>
                         </div>
                     </div>
-                    <div data-slot="card" className="bg-white h-[400px] text-card-foreground gap-6 rounded-xl border flex-1 flex flex-col overflow-hidden">
+                    <div data-slot="card" style={{overflow: 'scroll'}} className="bg-white h-[400px] text-card-foreground gap-6 rounded-xl border flex-1 flex flex-col overflow-hidden">
 
                         {/* Área de Desplazamiento del Chat (ViewPort) */}
                         <div dir="ltr" data-slot="scroll-area" className="relative flex-1 p-6" style={{ position: 'relative', '--radix-scroll-area-corner-width': '0px', '--radix-scroll-area-corner-height': '0px' }}>
