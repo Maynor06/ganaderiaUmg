@@ -1,3 +1,5 @@
+'use client'
+
 import { Api } from "@/lib/api"
 
 const { default: NavPotrero } = require("./NavPotrero")

@@ -1,6 +1,7 @@
 'use client'
 import { guardarToken } from "@/lib/auth";
 import { LockOutline, PermIdentityOutlined } from "@mui/icons-material";
+import Image from "next/image";
 
 const { login } = require("@/lib/api");
 const { useRouter } = require("next/navigation");
@@ -32,7 +33,7 @@ const Login = () => {
         <div className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl w-full max-w-md shadow-xl border-0">
           <div className="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 text-center space-y-4" >
             <div className="mx-auto w-32 h-32 flex items-center justify-center" >
-                <img src="/logo.png" alt="logo sis" />
+                <Image src={'/logo.png'} alt="logo" width={50} height={50} />
             </div>
             <div>
               <h2 className="text-3xl text-[#39a5a2] bg-gradient-to-r from-primary to-accent bg-clip-text" >GANEXA</h2>
