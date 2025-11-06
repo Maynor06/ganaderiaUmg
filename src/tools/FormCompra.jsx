@@ -24,6 +24,7 @@ const CompraForm = ({ initialData = {}, onSubmit, onCancel, proveedores, product
     useEffect(() => {
         if (initialData) {
             const mappedDetails = initialData.detalleCompras?.map(det => ({
+                idTemp: Date.now() + Math.random(),
                 idDetalleCompra: det.detalleCompraId || null, 
                 productoId: det.productoId ?? '',
                 cantidad: det.cantidad,
@@ -86,22 +87,19 @@ const CompraForm = ({ initialData = {}, onSubmit, onCancel, proveedores, product
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Mapea los datos al DTO que espera tu backend (compraRequestDto)
         const compraRequestDto = {
             ProveedorId: formData.proveedorId,
             Fecha: formData.fecha,
             TipoPago: formData.tipoPago,
             Total: totalCompra, 
-            // Esto es clave: incluye IdDetalleCompra si existe (para actualizar) o null (para añadir)
             DetalleCompras: formData.detalles.map(det => ({
-                IdDetalleCompra: det.idDetalleCompra, // null si es nuevo, ID si es existente
+                IdDetalleCompra: det.idDetalleCompra, 
                 ProductoId: det.productoId,
                 Cantidad: det.cantidad,
                 PrecioUnitario: det.precioUnitario,
             })),
         };
 
-        // Llama a la función del padre. El padre decidirá si es POST o PUT.
         onSubmit(compraRequestDto, formData.idCompra); 
     };
 
